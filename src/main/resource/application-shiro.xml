@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		                   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		                   http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
+
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+
+        <!-- 配置当权限不足的时候返回的路径 -->
+        <property name="loginUrl" value="/login/notLoggedIn" />
+        <property name="unauthorizedUrl" value="login/lackOfAuthority" />
+        <property name="filters">
+            <map>
+                <entry key="aesToken" value-ref="aesFilter"/>
+                <entry key="rolesOrFilter" value-ref="rolesOrFilter"/>
+                <entry key="permissionOrFilter" value-ref="permissionOrFilter"/>
+                <!-- <entry key="anon">
+                    <bean class="org.apache.shiro.web.filter.authc.AnonymousFilter"/>
+                </entry> -->
+            </map>
+        </property>
+        <property name="filterChainDefinitions">
+            <!-- 在value中为访问的路径加入过滤器来作为权限的拦截，可以放shiro中默认的过滤器，也可以自己写过滤器放进去 -->
+            <value>
+                <!-- anon过滤器:无参，开放权限，可以理解为匿名用户或游客 -->
+                /login/login=anno
+                <!-- aesToken是一个token登陆认证的机制的过滤器，permissionOr是一个权限过滤器，而中括号里面的就是访问需要的权限  -->
+                /worker/**=aesToken,permissionOrFilter[staff_worker,staff]
+                /admin/**=aesToken,permissionOrFilter[staff_admin,staff]
+                /payConfig/**=aesToken
+                /login/logout=logout
+                /**/**=aesToken,user
+            </value>
+        </property>
+    </bean>
+
+    <!-- 自定义filter -->
+    <bean id="aesFilter" class="ind.ck.shiro.filter.AesFilter" />
+    <bean id="rolesOrFilter" class="ind.ck.shiro.filter.RolesOrFilter" />
+    <bean id="permissionOrFilter" class="ind.ck.shiro.filter.PermissionOrFilter" />
+
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="userRealm" />
+        <property name="subjectDAO" ref="subjectDAO" />
+    </bean>
+
+    <bean id="userRealm" class="ind.ck.shiro.realm.UserRealm" />
+
+    <bean id="defaultSessionStorageEvaluator" class="org.apache.shiro.mgt.DefaultSessionStorageEvaluator" >
+        <property name="sessionStorageEnabled" value="false" />
+    </bean>
+
+    <bean id="subjectDAO" class="org.apache.shiro.mgt.DefaultSubjectDAO">
+        <property name="sessionStorageEvaluator" ref="defaultSessionStorageEvaluator" />
+    </bean>
+
+    <aop:config proxy-target-class="true" />
+
+    <!-- 保证 Shiro内部生命周期 -->
+    <bean class="org.apache.shiro.spring.LifecycleBeanPostProcessor"></bean>
+
+    <!-- 开启Shiro授权生效 -->
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor"></bean>
+</beans>

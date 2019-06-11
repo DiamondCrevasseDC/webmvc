@@ -1,0 +1,16 @@
+ind\ck\service\impl\UserServiceImpl.class
+ind\ck\service\RoleService.class
+ind\ck\service\PermissionService.class
+ind\ck\service\UserService.class
+ind\ck\task\TaskTest.class
+ind\ck\shiro\realm\UserRealm.class
+ind\ck\entity\Role.class
+ind\ck\shiro\filter\RolesOrFilter.class
+ind\ck\entity\Permission.class
+ind\ck\service\impl\RoleServiceImpl.class
+ind\ck\service\impl\PermissionServiceImpl.class
+ind\ck\shiro\token\AesToken.class
+ind\ck\controller\HelloWorldController.class
+ind\ck\shiro\filter\AesFilter.class
+ind\ck\entity\User.class
+ind\ck\shiro\filter\PermissionOrFilter.class

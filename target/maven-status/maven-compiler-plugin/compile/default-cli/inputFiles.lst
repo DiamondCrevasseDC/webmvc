@@ -1,0 +1,16 @@
+D:\webmvc\src\main\java\ind\ck\service\impl\RoleServiceImpl.java
+D:\webmvc\src\main\java\ind\ck\entity\User.java
+D:\webmvc\src\main\java\ind\ck\shiro\filter\AesFilter.java
+D:\webmvc\src\main\java\ind\ck\entity\Permission.java
+D:\webmvc\src\main\java\ind\ck\service\PermissionService.java
+D:\webmvc\src\main\java\ind\ck\shiro\realm\UserRealm.java
+D:\webmvc\src\main\java\ind\ck\service\impl\PermissionServiceImpl.java
+D:\webmvc\src\main\java\ind\ck\service\RoleService.java
+D:\webmvc\src\main\java\ind\ck\entity\Role.java
+D:\webmvc\src\main\java\ind\ck\controller\HelloWorldController.java
+D:\webmvc\src\main\java\ind\ck\shiro\token\AesToken.java
+D:\webmvc\src\main\java\ind\ck\shiro\filter\RolesOrFilter.java
+D:\webmvc\src\main\java\ind\ck\service\UserService.java
+D:\webmvc\src\main\java\ind\ck\task\TaskTest.java
+D:\webmvc\src\main\java\ind\ck\shiro\filter\PermissionOrFilter.java
+D:\webmvc\src\main\java\ind\ck\service\impl\UserServiceImpl.java
