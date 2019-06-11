@@ -18,16 +18,13 @@
                 <entry key="aesToken" value-ref="aesFilter"/>
                 <entry key="rolesOrFilter" value-ref="rolesOrFilter"/>
                 <entry key="permissionOrFilter" value-ref="permissionOrFilter"/>
-                <!-- <entry key="anon">
-                    <bean class="org.apache.shiro.web.filter.authc.AnonymousFilter"/>
-                </entry> -->
             </map>
         </property>
         <property name="filterChainDefinitions">
             <!-- 在value中为访问的路径加入过滤器来作为权限的拦截，可以放shiro中默认的过滤器，也可以自己写过滤器放进去 -->
             <value>
                 <!-- anon过滤器:无参，开放权限，可以理解为匿名用户或游客 -->
-                /login/login=anno
+                /login/login=anon
                 <!-- aesToken是一个token登陆认证的机制的过滤器，permissionOr是一个权限过滤器，而中括号里面的就是访问需要的权限  -->
                 /worker/**=aesToken,permissionOrFilter[staff_worker,staff]
                 /admin/**=aesToken,permissionOrFilter[staff_admin,staff]
